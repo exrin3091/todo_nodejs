@@ -21,10 +21,23 @@ app.use('/public',express.static(__dirname + '/public'))
 //view 엔진을 ejs로 설정
 app.set("view engine", "ejs")
 
+//----------------------------------------------
+
 app.get("/", (req, res)=>{
     TodoTask.find({}, null, {sort:{date:-1}})
     .then(tasks => {
-        res.render("login", {todoTasks: tasks});
+        res.render("index", {todoTasks: tasks});
+    })
+    .catch(error => {
+        console.error(error);
+        return res.status(500).send(error);
+    });
+})
+
+app.get("/register", (req, res)=>{
+    TodoTask.find({}, null, {sort:{date:-1}})
+    .then(tasks => {
+        res.render("signup", {todoTasks: tasks});
     })
     .catch(error => {
         console.error(error);
@@ -36,7 +49,8 @@ app.post("/write", async function(req, res){
     try{
         const todoTask = new TodoTask({ //새로운 TodoTask를 만들어서 todoTask에 저장
             content: req.body.content, //입력한 부분
-            date: moment().format("YYYY-MM-DD HH:mm:ss") //현재 시간
+            date: moment().format("YYYY-MM-DD HH:mm:ss"), //현재 시간
+            user: "test"
         });
         await todoTask.save(); //save()를 통해 db에 저장
         console.log("==== Success!! Save New TodoTask ====");
