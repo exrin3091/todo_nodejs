@@ -96,7 +96,7 @@ app.post("/write", async function(req, res){
         });
         await todoTask.save(); //save()를 통해 db에 저장
         console.log("==== Success!! Save New TodoTask ====");
-        console.table([{id: todoTask._id, content: todoTask.content, date: todoTask.date}]);
+        console.table([{id: todoTask._id, content: todoTask.content, date: todoTask.date, user: todoTask.user}]);
         res.redirect("/todo");
     }catch(error){
         console.error("==== Fail!! Save TodoTask ====");
