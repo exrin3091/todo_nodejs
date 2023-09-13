@@ -24,7 +24,7 @@ app.set("view engine", "ejs")
 app.get("/", (req, res)=>{
     TodoTask.find({}, null, {sort:{date:-1}})
     .then(tasks => {
-        res.render("index", {todoTasks: tasks});
+        res.render("login", {todoTasks: tasks});
     })
     .catch(error => {
         console.error(error);
