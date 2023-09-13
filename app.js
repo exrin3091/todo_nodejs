@@ -1,4 +1,5 @@
 const express = require("express")
+const session = require("express-session")
 const app = express()
 const port = 3000
 const mongoose = require('mongoose')
@@ -19,6 +20,11 @@ app.listen(port, () =>{
 app.use(express.urlencoded({extended: true}))
 //public 디렉토리에서 정적 파일을 제공
 app.use('/public',express.static(__dirname + '/public'))
+app.use(session({
+    secret: "your-secret-key", // 세션 암호화를 위한 비밀 키
+    resave: false, // 세션을 항상 저장할 지 여부
+    saveUninitialized: true // 초기화되지 않은 세션도 저장할 지 여부
+}))
 //view 엔진을 ejs로 설정
 app.set("view engine", "ejs")
 
@@ -60,20 +66,41 @@ app.post("/signin", async function(req, res){
     }
 })
 
+app.post("/login", (req, res)=>{
+    const loginID = req.body.login_id
+    const loginPW = req.body.login_pw
+
+    UserList.find({id: loginID, pw: loginPW})
+    .then((user)=>{
+        if(user.length === 1){
+            req.session.user = req.body.login_id
+            res.redirect("/todo")
+        }else{
+            console.error("로그인 실패");
+            res.redirect("/")
+        }
+        
+    })
+    .catch(error=>{
+        console.error(error);
+        return res.status(500).send(error);
+    })
+})
+
 app.post("/write", async function(req, res){
     try{
         const todoTask = new TodoTask({ //새로운 TodoTask를 만들어서 todoTask에 저장
             content: req.body.content, //입력한 부분
             date: moment().format("YYYY-MM-DD HH:mm:ss"), //현재 시간
-            user: "test"
+            user: req.session.user
         });
         await todoTask.save(); //save()를 통해 db에 저장
         console.log("==== Success!! Save New TodoTask ====");
         console.table([{id: todoTask._id, content: todoTask.content, date: todoTask.date}]);
-        res.redirect("/");
+        res.redirect("/todo");
     }catch(error){
         console.error("==== Fail!! Save TodoTask ====");
-        res.redirect("/");
+        res.redirect("/todo");
     } 
 })
 
@@ -85,7 +112,7 @@ app.post("/remove/:id", async function(req, res){
 
         console.log("==== Success!! Remove TodoTask ====");
         console.log("id: " + id);
-        res.redirect("/");
+        res.redirect("/todo");
 
     } catch(error){
         console.log("==== Fail!! Remove TodoTask ====")
