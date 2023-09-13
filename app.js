@@ -21,7 +21,7 @@ app.use(express.urlencoded({extended: true}))
 //public 디렉토리에서 정적 파일을 제공
 app.use('/public',express.static(__dirname + '/public'))
 app.use(session({
-    secret: "your-secret-key", // 세션 암호화를 위한 비밀 키
+    secret: "lilalila", // 세션 암호화를 위한 비밀 키
     resave: false, // 세션을 항상 저장할 지 여부
     saveUninitialized: true // 초기화되지 않은 세션도 저장할 지 여부
 }))
@@ -39,9 +39,9 @@ app.get("/register", (req, res)=>{
 })
 
 app.get("/todo", (req, res)=>{
-    TodoTask.find({}, null, {sort:{date:-1}})
+    TodoTask.find({user: req.session.user}, null, {sort:{date:-1}})
     .then(tasks => {
-        res.render("index", {todoTasks: tasks});
+        res.render("todos", {todoTasks: tasks, username: req.session.user});
     })
     .catch(error => {
         console.error(error);
@@ -75,6 +75,7 @@ app.post("/login", (req, res)=>{
         if(user.length === 1){
             req.session.user = req.body.login_id
             res.redirect("/todo")
+            console.log(req.session.user, "로그인 성공")
         }else{
             console.error("로그인 실패");
             res.redirect("/")
@@ -91,7 +92,7 @@ app.post("/write", async function(req, res){
     try{
         const todoTask = new TodoTask({ //새로운 TodoTask를 만들어서 todoTask에 저장
             content: req.body.content, //입력한 부분
-            date: moment().format("YYYY-MM-DD HH:mm:ss"), //현재 시간
+            date: moment().format("YYYY-MM-DD"), //현재 시간
             user: req.session.user
         });
         await todoTask.save(); //save()를 통해 db에 저장

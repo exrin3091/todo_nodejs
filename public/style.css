@@ -3,6 +3,7 @@ body{
 }
 
 h1{
+    margin-left: 20px;
     margin-top: 60px;
     padding-top: 30px;
     text-align: left;
@@ -29,6 +30,23 @@ div{
     bottom: 5%;
     margin-bottom: 20px;
     border-radius: 10px;
+}
+
+#btn{
+    bottom: 2%;
+    left: 95%;
+
+    border: none;
+    padding: 15px 20px;
+    border-radius: 30px;
+
+    background-color: rgb(255, 185, 72);
+
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+
+    transition: 0.25s;
 }
 
 #todo-btn{

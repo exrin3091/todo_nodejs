@@ -1,27 +1,28 @@
 <link href="public/style.css" rel="stylesheet">
 <link href="public/login_style.css" rel="stylesheet">
-<body>
-    <div>
+<body id="login-body">
+    <div id="login-div">
         <h1>로그인</h1>
         <form action="/login" method="post" id="login-form">
             <p>
-                ID : <input
+                <input
                 type="text"
                 name="login_id"
                 id="login-input"
                 required>
             </p>
             <p>
-                PW : <input 
-                type="text"
+                <input 
+                type="password"
                 name="login_pw"
                 id="login-input"
                 required>
             </p>
-            <button>로그인</button>
+            <button id="btn">로그인</button>
         </form>
+        <br>
         <form action="/register" method="get" id="login-form">
-            <button>회원가입</button>
+            <button id="btn">회원가입</button>
         </form>
     </div>
 </body>

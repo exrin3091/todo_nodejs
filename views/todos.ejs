@@ -1,5 +1,6 @@
 <link href="public/style.css" rel="stylesheet">
 <body>
+    안녕하세요, <%= username %> 님
     <div>
         <h1>오늘의 할일</h1>
         <!-- autocomplete : 자동완성-->        
@@ -19,13 +20,14 @@
         <ul id="todo-ul">
             <% for (let i = 0; i < todoTasks.length; i++) { %>
             <form action="/remove/<%= todoTasks[i]._id %>" method="POST" style="display: inline">
+                <input type="checkbox">
                 <li id="todo-li"><%= todoTasks[i].content %></li>
-                <input type="hidden" name="del" value="<%= i %>" />
-                <button type="submit" id="del-btn">🗑️</button>
+                    <input type="hidden" name="del" value="<%= i %>" />
+                    <button type="submit" id="del-btn">🗑️</button>
                 <li id="todo-li2"><%= todoTasks[i].date %></li>
                 <hr>
             </form>
-        <% } %>
+            <% } %>
         </ul>
     </div>    
 </body>
