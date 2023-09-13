@@ -3,20 +3,6 @@
     안녕하세요, <%= username %> 님
     <div>
         <h1>오늘의 할일</h1>
-        <!-- autocomplete : 자동완성-->        
-        <form action="/write" method="post" autocomplete="off" id="todo-form">
-            <input 
-                type="text" 
-                name="content"
-                placeholder="할일을 입력하세요"
-                id="todo-input"
-                maxlength="18"
-                required
-                autofocus
-                >
-            <button id="todo-btn">+</button>
-        </form>
-
         <ul id="todo-ul">
             <% for (let i = 0; i < todoTasks.length; i++) { %>
             <form action="/remove/<%= todoTasks[i]._id %>" method="POST" style="display: inline">
@@ -29,5 +15,18 @@
             </form>
             <% } %>
         </ul>
+        <!-- autocomplete : 자동완성-->        
+        <form action="/write" method="post" autocomplete="off" id="todo-form">
+            <input 
+                    type="text" 
+                    name="content"
+                    placeholder="할일을 입력하세요"
+                    id="todo-input"
+                    maxlength="18"
+                    required
+                    autofocus
+                    >
+            <button id="todo-btn">+</button>
+        </form>        
     </div>    
 </body>

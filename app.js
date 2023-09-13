@@ -77,8 +77,8 @@ app.post("/login", (req, res)=>{
             res.redirect("/todo")
             console.log(req.session.user, "로그인 성공")
         }else{
-            console.error("로그인 실패");
-            res.redirect("/")
+            console.error("로그인 실패")
+            res.send("<script>alert('회원 정보가 없습니다');window.location.replace('/');</script>");
         }
         
     })
