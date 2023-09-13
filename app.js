@@ -3,6 +3,7 @@ const app = express()
 const port = 3000
 const mongoose = require('mongoose')
 const TodoTask = require("./models/todoTask")
+const UserList = require("./models/userList")
 
 var moment=require('moment')
 
@@ -23,7 +24,15 @@ app.set("view engine", "ejs")
 
 //----------------------------------------------
 
-app.get("/", (req, res)=>{
+app.get("/", (req,res)=>{
+    res.render("login");
+})
+
+app.get("/register", (req, res)=>{
+    res.render("signup");
+})
+
+app.get("/todo", (req, res)=>{
     TodoTask.find({}, null, {sort:{date:-1}})
     .then(tasks => {
         res.render("index", {todoTasks: tasks});
@@ -34,15 +43,21 @@ app.get("/", (req, res)=>{
     });
 })
 
-app.get("/register", (req, res)=>{
-    TodoTask.find({}, null, {sort:{date:-1}})
-    .then(tasks => {
-        res.render("signup", {todoTasks: tasks});
-    })
-    .catch(error => {
-        console.error(error);
-        return res.status(500).send(error);
-    });
+app.post("/signin", async function(req, res){
+    try{
+        const userData = new UserList({
+            name: req.body.reg_name, 
+            id: req.body.reg_id, 
+            pw: req.body.reg_pw
+        })
+        await userData.save()
+        console.log("==== Success!! Save New User ====");
+        res.redirect("/");
+    }
+    catch(error){
+        console.error("==== Fail!! Save New User ====");
+        res.redirect("/register")
+    }
 })
 
 app.post("/write", async function(req, res){
