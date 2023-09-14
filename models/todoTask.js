@@ -11,6 +11,10 @@ const todoTaskSchema = new mongoose.Schema({
     user:{
         type: String,
         required: true
+    },
+    favorite:{
+        type: Number,
+        required: false
     }
 })
 

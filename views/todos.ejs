@@ -1,15 +1,16 @@
 <link href="public/style.css" rel="stylesheet">
+<link href="public/btn-style.css" rel="stylesheet">
 <body>
     안녕하세요, <%= username %> 님
     <div>
-        <h1>오늘의 할일</h1>
+        <h1>오늘 할 일</h1>
         <ul id="todo-ul">
             <% for (let i = 0; i < todoTasks.length; i++) { %>
             <form action="/remove/<%= todoTasks[i]._id %>" method="POST" style="display: inline">
-                <input type="checkbox">
                 <li id="todo-li"><%= todoTasks[i].content %></li>
+                    <input type="checkbox" id="todo-chbx">
                     <input type="hidden" name="del" value="<%= i %>" />
-                    <button type="submit" id="del-btn">🗑️</button>
+                    <button type="submit" id="del-btn">⨉</button>
                 <li id="todo-li2"><%= todoTasks[i].date %></li>
                 <hr>
             </form>
@@ -20,13 +21,13 @@
             <input 
                     type="text" 
                     name="content"
-                    placeholder="할일을 입력하세요"
+                    title="오늘 할 일에 추가"
+                    placeholder="+ 작업 추가"
                     id="todo-input"
                     maxlength="18"
                     required
-                    autofocus
                     >
-            <button id="todo-btn">+</button>
+            <button id="todo-btn">┿</button>
         </form>        
     </div>    
 </body>
