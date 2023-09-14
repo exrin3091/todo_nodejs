@@ -1,4 +1,6 @@
 body{
+    background-image: url('/public/images/todo-bg.jpg');
+    background-size: 1200px;
     background-color: rgb(252, 255, 221);
 }
 
@@ -11,11 +13,16 @@ h1{
 }
 
 div{
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.768);
     width: 800px;
     height: 600px;
     margin-left: 580px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0 ,0.25); 
+    border-radius: 10px;
+}
+
+#welcome-txt{
+    color: white;
 }
 
 #todo-form{
@@ -40,7 +47,7 @@ div{
 
 #todo-li2{
     font-size: 15px;
-    color: gray;
+    color: rgb(255, 255, 255);
     display: inline-block;
     width: 80%;
 }
