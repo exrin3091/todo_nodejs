@@ -6,7 +6,8 @@ const mongoose = require('mongoose')
 const TodoTask = require("./models/todoTask")
 const UserList = require("./models/userList")
 
-var moment=require('moment')
+var moment = require('moment')
+var path = require('path')
 
 mongoose.connect('mongodb+srv://ina3213:CS177143@cluster0.jaeynv1.mongodb.net/')
 .then(()=> console.log('connect'))
@@ -20,6 +21,8 @@ app.listen(port, () =>{
 app.use(express.urlencoded({extended: true}))
 //public 디렉토리에서 정적 파일을 제공
 app.use('/public',express.static(__dirname + '/public'))
+app.use('/node_modules', express.static(path.join(__dirname + '/node_modules')))
+
 app.use(session({
     secret: "lilalila", // 세션 암호화를 위한 비밀 키
     resave: false, // 세션을 항상 저장할 지 여부

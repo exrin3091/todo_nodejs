@@ -1,5 +1,21 @@
 <link href="public/style.css" rel="stylesheet">
 <link href="public/btn-style.css" rel="stylesheet">
+<script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(()=>{
+        $(".ajaxSend").on("click", ()=>{
+            const content = $('#todo-input').val();
+            $.ajax({
+                url: "/write",
+                method: "post",
+                data : {content : content}
+            })
+            .done((result)=>{
+                console.log(result);
+            })
+        })
+    })
+</script>
 <body>
     <label id="welcome-txt">안녕하세요, <%= username %> 님</label>
     <div>
@@ -17,17 +33,15 @@
             <% } %>
         </ul>
         <!-- autocomplete : 자동완성-->        
-        <form action="/write" method="post" autocomplete="off" id="todo-form">
-            <input 
-                    type="text" 
-                    name="content"
+        <form action="/write" method="post" autocomplete="off" id="todo-form" onsubmit="return false">
+            <input type="text" name="content"
                     title="오늘 할 일에 추가"
                     placeholder="+ 작업 추가"
                     id="todo-input"
                     maxlength="18"
                     required
                     >
-            <button id="todo-btn">┿</button>
+            <button class="ajaxSend" id="todo-btn">┿</button>
         </form>        
     </div>    
 </body>
