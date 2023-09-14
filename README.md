@@ -11,7 +11,6 @@ express-session을 통한 로그인 쿠키 저장 및 해당 쿠키를 통해 �
 4. 사진 올리기 (multer)
 
 -- 미정
-1. axios
-2. passport
-3. env
-4. 웹 스크롤링 또는 사진 업로드
+1. passport
+2. env
+3. 웹 스크롤링 또는 사진 업로드
