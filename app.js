@@ -1,20 +1,20 @@
 const express = require("express")
 const session = require("express-session")
 const app = express()
-const port = 3000
 const mongoose = require('mongoose')
 const TodoTask = require("./models/todoTask")
 const UserList = require("./models/userList")
 
 var moment = require('moment')
 var path = require('path')
+require("dotenv").config()
 
-mongoose.connect('mongodb+srv://ina3213:CS177143@cluster0.jaeynv1.mongodb.net/')
+mongoose.connect('mongodb+srv://ina3213:' + process.env.DB_PASS + '@cluster0.jaeynv1.mongodb.net/')
 .then(()=> console.log('connect'))
 .catch((error) => {throw error})
 
-app.listen(port, () =>{
-    console.log(`App listening at http://localhost:${port}`)
+app.listen(process.env.PORT, () =>{
+    console.log(`App listening at http://localhost:${process.env.PORT}`)
 })
 
 //body-parser설정, qs모듈을 사용
