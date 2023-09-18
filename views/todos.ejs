@@ -3,7 +3,7 @@
 <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
 <script>
     $(document).ready(()=>{
-        $(".ajaxSend").on("click", ()=>{
+        $(".todoSend").on("click", ()=>{
             const content = $('#todo-input').val();
             $.ajax({
                 url: "/write",
@@ -12,7 +12,7 @@
             })
             .done((result)=>{
                 console.log(result);
-                $('body').html(result)
+                $('body').html(result);
             })
         })
     })
@@ -42,7 +42,7 @@
                     maxlength="18"
                     required
                     >
-            <button class="ajaxSend" id="todo-btn">┿</button>
+            <button class="todoSend" id="todo-btn">┿</button>
         </form>        
     </div>    
 </body>
